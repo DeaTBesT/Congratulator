@@ -1,0 +1,72 @@
+﻿@model Person
+
+<div class="modal fade" id="EditPerson-@Model.ID" role="dialog" aria-labelledby="EditPersonLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="editPersonLabel">Редактирование</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form id="editForm" asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"/>
+                    <div class="form-group">
+                        <p class="text-dark">Имя</p>
+                        <input type="hidden" asp-for="ID"/>
+                        <label asp-for="Name" class="control-label"/>
+                        <input asp-for="Name" class="form-control"/>
+                        <span asp-validation-for="Name" class="text-danger"/>
+                    </div>
+                    <div class="form-group">
+                        <p class="text-dark">Дата рождения</p>
+                        <label asp-for="BirthdayDate" class="control-label" />
+                        <input asp-for="BirthdayDate" type="date" class="form-control" />
+                        <span asp-validation-for="BirthdayDate" class="text-danger" />
+                    </div>
+                    <div class="form-group">
+                        <p class="text-dark">Фото</p>
+                        <input type="hidden" asp-for="PhotoName" />
+                        <label asp-for="UploadPhoto" class="control-label" />
+                        <input asp-for="UploadPhoto" type="file" accept="image/*" class="text-dark" />
+                        <span asp-validation-for="UploadPhoto" class="text-danger" />
+                    </div>
+   
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="showDeleteForm(@Model.ID)">
+                            Удалить
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                    </div>
+                </form>
+
+                <form id="deleteForm-@Model.ID" asp-action="Delete" method="post" style="display:none">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" />
+                    <div class="form-group">
+                        <input type="hidden" asp-for="ID" />
+                        <p class="text-dark">Вы уверенны, что хотите удалить @Model.Name?</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary">Закрыть</button>
+                        <button type="submit" class="btn btn-danger">Да</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteForm(id) {
+        var x = document.getElementById("deleteForm-" + id);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
