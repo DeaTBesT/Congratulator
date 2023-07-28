@@ -12,7 +12,7 @@ namespace Congratulator
 
         public DBManager()
         {
-            sqliteConnection = new SqliteConnection("Data Source=D:\\Other\\CSProjects\\Congratulator\\database.db");
+            sqliteConnection = new SqliteConnection("Data Source=database.db");
             sqliteConnection.Open();
         }
 
